@@ -68,12 +68,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-##### ___client__________ #####
-npx create-react-app client  // create-react-app.dev
-
-cd client
-
-npm install react-router-dom // reactrouter.com/web/guides/quick-start
-
-npm install axios // axios VS fetch

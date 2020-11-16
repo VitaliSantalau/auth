@@ -18,4 +18,4 @@ cd server
 
 npm i express cors pg jsonwebtoken bcrypt
 
-sudo -u postgres psql  /// enter to postgresql my book
+sudo -u postgres psql  /// enter to postgresql my LENOVO

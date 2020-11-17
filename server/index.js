@@ -3,11 +3,13 @@ const app = express();
 const cors = require("cors");
 
 // middleware
-
 app.use(express.json()); // req.body
 app.use(cors());
 
-//ROUTERS//
+// ROUTERS //
+
+// register and login routes
+app.use("/auth", require("./routes/jwtAuth"));
 
 
 

@@ -17,5 +17,9 @@ npm init -y
 cd server
 
 npm i express cors pg jsonwebtoken bcrypt
+npm i dotenv
 
 sudo -u postgres psql  /// enter to postgresql my LENOVO
+
+https://node-postgres.com/features /// for pg.Poll
+

@@ -2,10 +2,12 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const pool = require("../db");
 const jwtGenerator = require("../utils/jwtGenerator");
+const validInfo = require("../middleware/validinfo");
+const authorization = require("../middleware/authorization");
 
 
 // registering
-router.post("/register", async (req, res) => {
+router.post("/register", validInfo, async (req, res) => {
   try {
 
     // 1. destructure the req.body (name, email, password)
@@ -29,9 +31,9 @@ router.post("/register", async (req, res) => {
     );
 
     // 5. generating our jwt 
-    const jwToken = jwtGenerator(newUser.rows[0].user_id);
+    const token = jwtGenerator(newUser.rows[0].user_id);
 
-    res.json({ jwToken });
+    res.json({ token });
 
   } catch (err) {
     console.error(err.message);    
@@ -40,12 +42,12 @@ router.post("/register", async (req, res) => {
 });
 
 // login route
-router.post("/login", async (req, res) => {
+router.post("/login", validInfo, async (req, res) => {
+  
+  // 1. destructure the req.body (name, email, password)
+  const { email, password } = req.body;
+  
   try {
-
-    // 1. destructure the req.body (name, email, password)
-    const { email, password } = req.body;
-
     // 2. check if user doesn't exist (if not then throw an error)
     const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [email]);
 
@@ -61,14 +63,26 @@ router.post("/login", async (req, res) => {
     }
 
     // 4. give them the jwt token
-    const jwToken = jwtGenerator(user.rows[0].user_id);
+    const token = jwtGenerator(user.rows[0].user_id);
 
-    res.json({ jwToken });
+    res.json({ token });
     
   } catch (err) {
     console.error(err.message);    
     res.status(500).send("Server error");
   }
-})
+});
+
+// verify check route
+router.get("/is-verify", authorization, (req, res) => {
+  try {
+
+    res.json(true);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
 
 module.exports = router;

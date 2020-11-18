@@ -18,3 +18,11 @@ CREATE TABLE users (
 -- insert fake user
 INSERT INTO users (user_name, user_email, user_password) VALUES
 ('Vitali', 'v.santalau@gmail.com', '1');
+
+CREATE TABLE todo(
+  todo_id SERIAL,
+  user_id UUID ,
+  description VARCHAR(255),
+  PRIMARY KEY (todo_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+);

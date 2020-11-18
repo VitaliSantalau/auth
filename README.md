@@ -6,9 +6,9 @@ npx create-react-app client  // create-react-app.dev
 
 cd client
 
-npm install react-router-dom // reactrouter.com/web/guides/quick-start
+npm i react-router-dom // reactrouter.com/web/guides/quick-start
 
-npm install axios // axios VS fetch
+npm install axios // axios VS fetch ????????
 
 
 ##### ____server_________ #####

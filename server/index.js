@@ -12,8 +12,8 @@ app.use(express.json()); // req.body
 // register and login routes
 app.use("/authentication", require("./routes/jwtAuth"));
 
-
-
+// dashboard route
+app.use("/dashboard", require("./routes/dashboard"));
 
 
 app.listen(5000, () => {

@@ -9,7 +9,11 @@ function App() {
   return (
     <Fragment>
       <Router>
-
+        <Switch>
+          <Route exact path="/login" render={props => <Login {...props} />} />
+          <Route exact path="/register" render={props => <Register {...props} />} />
+          <Route exact path="/dashboard" render={props => <Dashboard {...props} />} />
+        </Switch>
       </Router>
     </Fragment>
   );

@@ -1,74 +1,58 @@
 import React, { Fragment, useState, useEffect, useContext, createContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom';
 import './App.css';
-/*import Dashboard from "../components/Dashboard";
-import Login from "../components/Login";
-import Register from "../components/Register";*/
-
-/*<Router>
-        <Switch>
-          <Route exact path="/login" render={props => <Login {...props} />} />
-          <Route exact path="/register" render={props => <Register {...props} />} />
-          <Route exact path="/dashboard" render={props => <Dashboard {...props} />} />
-        </Switch>
-      </Router>
-*/
-
-const AuthContext = createContext();
-
-// Provider hook that creates auth object and handles state
-function useProvideAuth() {
-  const [user, setUser] = useState(false);
-
-  return user;
-};
-
-function PrivateRoute({ children }) {
-  const auth = useContext(AuthContext);
-  return (
-    <Route
-      render={() => children}
-    />
-  );
-}
-
-function Protected() {
-  const auth = useContext(AuthContext);
-  return (
-    <h3>Protected</h3>
-  )
-};
-
-function LoginPage() {
-  const auth = useContext(AuthContext);
-  return (
-    <button >click me</button>
-  )
-};
-
 
 
 function App() {
   return (
-    <AuthContext.Provider value={useProvideAuth()}>
-      <Router>       
-        <Switch>
-          <Route exact path="/">
-            <h3>Public</h3>
-          </Route>
-          <Route path="/public">
-            <h3>Public</h3>
-          </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <PrivateRoute path="/protected">
-            <Protected />
-          </PrivateRoute>
-        </Switch>
-      </Router>
-    </AuthContext.Provider>
-  );
-}
+    <Router>
+      <Link to="/login" className="link">LogIn</Link>
+      <Link to="/" className="link">LogOut</Link>
+      <Link to="/admin" className="link">admin</Link>
+      <Switch>
+        <Route exact path="/">
+          <PublicPage />
+        </Route>
+        <Route exact path="/admin">
+          { checkLoggedIn() ? <AdminPage /> : <Redirect to="/login" /> }
+        </Route>
+        <Route>
+          <LoginPage />
+        </Route>
+      </Switch>
+    </Router>
+  )
+};
+
+function checkLoggedIn(state) {
+  return state;
+};
+
+function LoginPage() {
+  const [isloggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(()=> {
+    checkLoggedIn(isloggedIn);
+  }, [isloggedIn]
+  )
+  
+
+  return (
+    <button onClick={setIsLoggedIn(true)}>LogIn</button>
+  )
+};
+
+function PublicPage() {
+  return <h1>Public Page</h1>
+};
+
+function AdminPage() {
+  return (
+    <Fragment>
+      <PublicPage />
+      <button>Edit</button>
+    </Fragment>
+  )
+};
 
 export default App;

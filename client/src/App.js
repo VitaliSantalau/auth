@@ -1,44 +1,34 @@
-import React, { Fragment, useState, useEffect, useContext, createContext } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom';
+import React, { Fragment, useState, useEffect, useContext} from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 
+import ProvideAuth from "./auth/ProvideAuth";
+import ProtectedRoute from "./auth/ProtectedRoute";
+import LoginPage from "./auth/LoginPage";
 
 function App() {
-  return (
-    <Router>
-      <Link to="/login" className="link">LogIn</Link>
-      <Link to="/" className="link">LogOut</Link>
-      <Link to="/admin" className="link">admin</Link>
-      <Switch>
-        <Route exact path="/">
-          <PublicPage />
-        </Route>
-        <Route exact path="/admin">
-          { checkLoggedIn() ? <AdminPage /> : <Redirect to="/login" /> }
-        </Route>
-        <Route>
-          <LoginPage />
-        </Route>
-      </Switch>
-    </Router>
-  )
-};
-
-function checkLoggedIn(state) {
-  return state;
-};
-
-function LoginPage() {
-  const [isloggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(()=> {
-    checkLoggedIn(isloggedIn);
-  }, [isloggedIn]
-  )
   
-
   return (
-    <button onClick={setIsLoggedIn(true)}>LogIn</button>
+    <ProvideAuth>
+      <Router>
+        <Link to="/" className="link">Home</Link>
+        <Link to="/log" className="link">Log In</Link>
+        <Switch>
+          <Route exact path="/">
+            <PublicPage />
+          </Route>
+          <Route exact path="/log">
+            <LoginPage />
+          </Route>
+          <ProtectedRoute>
+            <AdminPage />
+          </ProtectedRoute>
+          <ProtectedRoute>
+            <UserPage />
+          </ProtectedRoute>
+        </Switch>
+      </Router>
+    </ProvideAuth>
   )
 };
 
@@ -53,6 +43,10 @@ function AdminPage() {
       <button>Edit</button>
     </Fragment>
   )
+};
+
+function UserPage() {
+  return <h1>Hi user</h1>
 };
 
 export default App;

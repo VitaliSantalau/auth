@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 
 const authContext = createContext();
@@ -7,31 +7,21 @@ export function useAuth() {
   return useContext(authContext);
 }
 
-function HandleAuth() {
-  const [user, setUser] = useState();
-  const [status, setStatus] = useState('user'); // or 'admin'
+function useHandleAuth() {
+  const [user, setUser] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true)
 
-  const logIn = () => {
-  
-  };
-
-  const logOut = () => {
-    
-  };
-
-  return (
+  return {
     user,
-    logIn,
-    logOut
-  );
+    isAdmin
+  };
 };
 
-function ProvideAuth({ children }) {
-  
+
+export function ProvideAuth({ children }) {
   return (
-    <authContext.Provider value={HandleAuth()}>
+    <authContext.Provider value={useHandleAuth()}>
       { children }
     </authContext.Provider>
   );
 };
-export default ProvideAuth;

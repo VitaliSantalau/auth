@@ -1,13 +1,12 @@
-import React, { Fragment, useState, useEffect, useContext} from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import React, { Fragment, useState, useEffect, useContext, createContext} from 'react';
+import { BrowserRouter as Router, Switch, Route, Link , Redirect} from 'react-router-dom';
 import './App.css';
 
-import ProvideAuth from "./auth/ProvideAuth";
+import { ProvideAuth } from "./auth/ProvideAuth";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import LoginPage from "./auth/LoginPage";
 
 function App() {
-  
   return (
     <ProvideAuth>
       <Router>
@@ -20,10 +19,10 @@ function App() {
           <Route exact path="/log">
             <LoginPage />
           </Route>
-          <ProtectedRoute>
+          <ProtectedRoute path="/admin">
             <AdminPage />
           </ProtectedRoute>
-          <ProtectedRoute>
+          <ProtectedRoute path="/user">
             <UserPage />
           </ProtectedRoute>
         </Switch>

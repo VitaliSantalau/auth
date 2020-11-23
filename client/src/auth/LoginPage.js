@@ -1,7 +1,9 @@
 import React from 'react';
+import { useAuth } from './ProvideAuth';
+
 
 function LoginPage() {
-  
+  const auth = useAuth();
   
   return (
     <div>

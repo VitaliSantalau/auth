@@ -8,13 +8,18 @@ function ProtectedRoute({ children, ...rest }) {
   return (
     <Route 
       { ...rest }
-      render={({ location }) => auth.user ?
-        children:
-        <Redirect to={{
-          pathname: "/log",
-          state: { from: location }
-          }}
-        />
+      render={() => { 
+        auth.user === "admin" ? children : <Redirect to="/log" />
+        switch(auth.user) {
+          case "admin":
+            return children;
+            break;
+          case "user":
+            return children
+          default:
+            return <Redirect to="/log" />
+          }
+        }
       }
     />
   );

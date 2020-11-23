@@ -8,7 +8,7 @@ export function useAuth() {
 }
 
 function useHandleAuth() {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState("admin");
   const [isAdmin, setIsAdmin] = useState(true)
 
   return {

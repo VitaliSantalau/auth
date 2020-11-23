@@ -10,8 +10,12 @@ function App() {
   return (
     <ProvideAuth>
       <Router>
-        <Link to="/" className="link">Home</Link>
-        <Link to="/log" className="link">Log In</Link>
+        <nav>
+          <Link to="/" className="link">Home</Link>
+          <Link to="/log" className="link">Log In</Link>
+          <Link to="/admin" className="link">Admin</Link>
+          <Link to="/user" className="link">User</Link>
+        </nav>
         <Switch>
           <Route exact path="/">
             <PublicPage />

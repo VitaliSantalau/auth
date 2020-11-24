@@ -1,11 +1,8 @@
 
-export default oFromDB = {
+export const credentialData = {
   user: {
-    name: chack,
-    password: 23456
-  },
-  admin: {
-    name: vitali,
-    password: 1
+    status: "admin",
+    name: "chack",
+    password: "23456"
   }
 };

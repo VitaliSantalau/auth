@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
+import {credentialData} from "./UserCredentials";
+
 
 const authContext = createContext();
 
@@ -8,12 +10,22 @@ export function useAuth() {
 }
 
 function useHandleAuth() {
-  const [user, setUser] = useState("admin");
-  const [isAdmin, setIsAdmin] = useState(true)
+  const [status, setstatus] = useState(credentialData.user.status);
+  const [isAuth, setIsAuth] = useState(true);
+
+  function logIn() {
+    setIsAuth(true)
+  }
+
+  function logOut() {
+    setIsAuth(false)
+  }
 
   return {
-    user,
-    isAdmin
+    status,
+    isAuth,
+    logIn,
+    logOut
   };
 };
 

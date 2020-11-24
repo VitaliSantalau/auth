@@ -4,7 +4,7 @@ import './App.css';
 
 import { ProvideAuth } from "./auth/ProvideAuth";
 import ProtectedRoute from "./auth/ProtectedRoute";
-import LoginPage from "./auth/LoginPage";
+import LogPage from "./auth/LogPage";
 
 function App() {
   return (
@@ -12,7 +12,8 @@ function App() {
       <Router>
         <nav>
           <Link to="/" className="link">Home</Link>
-          <Link to="/log" className="link">Log In</Link>
+          <Link to="/identity/logIn" className="link">Log In</Link>
+          <Link to="/identity/singUp" className="link">Sing Up</Link>
           <Link to="/admin" className="link">Admin</Link>
           <Link to="/user" className="link">User</Link>
         </nav>
@@ -20,13 +21,16 @@ function App() {
           <Route exact path="/">
             <PublicPage />
           </Route>
-          <Route exact path="/log">
-            <LoginPage />
+          <Route path="/identity/logIn">
+            <LogPage status="logIn"/>
           </Route>
-          <ProtectedRoute path="/admin">
+          <Route path="/identity/singUp">
+            <LogPage status="singUp"/>
+          </Route>
+          <ProtectedRoute path="/admin" status="admin">
             <AdminPage />
           </ProtectedRoute>
-          <ProtectedRoute path="/user">
+          <ProtectedRoute path="/user" status="user">
             <UserPage />
           </ProtectedRoute>
         </Switch>

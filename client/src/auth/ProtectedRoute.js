@@ -8,7 +8,7 @@ function ProtectedRoute({ children, path, status }) {
   return (
     <Route
       path
-      render={() => (auth.status === status && auth.isAuth) ? children : <Redirect to="/identity" />}
+      render={() => (auth.status === status && auth.isAuth) ? children : <Redirect to="/logIn" />}
     />
   )
   };

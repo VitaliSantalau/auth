@@ -1,37 +1,31 @@
 import React, { Fragment, useState, useEffect, useContext, createContext} from 'react';
-import { BrowserRouter as Router, Switch, Route, Link , Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link , Redirect, NavLink} from 'react-router-dom';
 import './App.css';
 
 import { ProvideAuth } from "./auth/ProvideAuth";
 import ProtectedRoute from "./auth/ProtectedRoute";
-import LogPage from "./auth/LogPage";
+import LogInPage from './auth/LogInPage';
+import RegisterPage from './auth/RegisterPage';
 
 function App() {
   return (
     <ProvideAuth>
       <Router>
-        <nav>
-          <Link to="/" className="link">Home</Link>
-          <Link to="/identity/logIn" className="link">Log In</Link>
-          <Link to="/identity/singUp" className="link">Sing Up</Link>
-          <Link to="/admin" className="link">Admin</Link>
-          <Link to="/user" className="link">User</Link>
-        </nav>
         <Switch>
           <Route exact path="/">
             <PublicPage />
           </Route>
-          <Route path="/identity/logIn">
-            <LogPage status="logIn"/>
+          <Route path="/logIn">
+            <LogInPage />
           </Route>
-          <Route path="/identity/singUp">
-            <LogPage status="singUp"/>
+          <Route path="/register">
+            <RegisterPage />
           </Route>
-          <ProtectedRoute path="/admin" status="admin">
-            <AdminPage />
-          </ProtectedRoute>
           <ProtectedRoute path="/user" status="user">
             <UserPage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/admin" status="admin">
+            <AdminPage />
           </ProtectedRoute>
         </Switch>
       </Router>
@@ -40,7 +34,14 @@ function App() {
 };
 
 function PublicPage() {
-  return <h1>Public Page</h1>
+  return (
+    <div>
+      <NavLink to="/logIn" className="link">Log in</NavLink>
+      <NavLink to="/register" className="link">Sing up</NavLink>
+      <h1>Public Page</h1>
+    </div>
+  
+  )
 };
 
 function AdminPage() {
